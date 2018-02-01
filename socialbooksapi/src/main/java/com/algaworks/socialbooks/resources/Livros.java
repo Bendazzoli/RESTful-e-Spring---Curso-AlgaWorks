@@ -38,4 +38,10 @@ public class Livros {
 	public void excluir(@PathVariable("idLivro") Long idLivro){
 		livrosRepository.delete(idLivro);
 	}
+	
+	@RequestMapping(value = "/{idLivro}", method = RequestMethod.PUT)
+	public void atualizar(@RequestBody Livro livro, @PathVariable("idLivro") Long idLivro){
+		livro.setId(idLivro);
+		livrosRepository.save(livro);
+	}
 }
