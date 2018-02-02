@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.algaworks.socialbooks.domain.Comentario;
 import com.algaworks.socialbooks.domain.Livro;
 import com.algaworks.socialbooks.services.LivrosService;
 
@@ -33,6 +34,7 @@ public class Livros {
 		
 		livrosService.salvar(livro);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{idLivro}").buildAndExpand(livro.getId()).toUri();
+		
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -40,6 +42,7 @@ public class Livros {
 	public ResponseEntity<?> buscar(@PathVariable("idLivro") Long idLivro){
 		
 		Livro livro = livrosService.buscar(idLivro);
+		
 		return ResponseEntity.status(HttpStatus.OK).body(livro);
 	}
 	
@@ -47,6 +50,7 @@ public class Livros {
 	public ResponseEntity<Void> excluir(@PathVariable("idLivro") Long idLivro){
 		
 		livrosService.excluir(idLivro);		
+		
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
@@ -55,6 +59,16 @@ public class Livros {
 		
 		livro.setId(idLivro);
 		livrosService.atualizar(livro);
+		
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+	
+	@RequestMapping(value = "/{idLivro}/comentarios", method = RequestMethod.POST)
+	public ResponseEntity<Void> adicionarComentario(@RequestBody Comentario comentario, @PathVariable("idLivro") Long idLivro){
+		
+		livrosService.salvarComentario(idLivro, comentario);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+		
+		return ResponseEntity.created(uri).build();
 	}
 }
