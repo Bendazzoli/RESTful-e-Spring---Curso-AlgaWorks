@@ -73,4 +73,9 @@ public class LivrosService {
 		
 		return comentariosRepository.save(comentario);
 	}
+	
+	public List<Comentario> listarComentario(Long idLivro){
+		Livro livro = buscar(idLivro);
+		return livro.getComentarios();
+	}
 }
