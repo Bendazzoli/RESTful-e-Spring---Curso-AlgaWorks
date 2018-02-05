@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class Livros {
 	@Autowired
 	private LivrosService livrosService;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<List<Livro>> listar(){
 		return ResponseEntity.status(HttpStatus.OK).body(livrosService.listar());
 	}
@@ -40,7 +41,7 @@ public class Livros {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value = "/{idLivro}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{idLivro}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<?> buscar(@PathVariable("idLivro") Long idLivro){
 		
 		Livro livro = livrosService.buscar(idLivro);
@@ -74,7 +75,7 @@ public class Livros {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value = "/{idLivro}/comentarios", method = RequestMethod.GET)
+	@RequestMapping(value = "/{idLivro}/comentarios", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<List<Comentario>> listarComentarios(@PathVariable("idLivro") Long idLivro){
 		
 		List<Comentario> comentarios = livrosService.listarComentario(idLivro);
