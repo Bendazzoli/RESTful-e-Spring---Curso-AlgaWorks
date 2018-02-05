@@ -9,10 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 public class Autor {
@@ -21,14 +21,14 @@ public class Autor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idAutor;
 	
-	@JsonInclude(Include.NON_NULL)
+	@NotEmpty(message = "Nome e um campo obrigatorio")
 	private String nome;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@JsonInclude(Include.NON_NULL)
+	@NotEmpty(message = "Data de Nascimento e um campo obrigatorio.")
 	private Date dtNascimento;
 	
-	@JsonInclude(Include.NON_NULL)
+	@NotEmpty(message = "Nacionalidade e um campo Oobrigatorio.")
 	private String nacionalidade;
 		
 	@OneToMany(mappedBy = "autor")
