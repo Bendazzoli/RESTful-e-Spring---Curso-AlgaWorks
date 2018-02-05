@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -33,7 +34,7 @@ public class Comentario {
 	private String usuario;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@NotEmpty(message = "Data e um campo obrigatorio.")
+	@NotNull(message = "Data e um campo obrigatorio.")
 	private Date data;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

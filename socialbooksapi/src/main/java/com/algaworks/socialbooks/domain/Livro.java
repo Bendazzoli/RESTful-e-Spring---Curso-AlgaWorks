@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -30,7 +31,7 @@ public class Livro {
 	private String nome;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@NotEmpty(message = "Publicacao e um campo obrigatorio.")
+	@NotNull(message = "Publicacao e um campo obrigatorio.")
 	private Date publicacao;
 	
 	@NotEmpty(message = "Editora e um campo obrigatorio.")

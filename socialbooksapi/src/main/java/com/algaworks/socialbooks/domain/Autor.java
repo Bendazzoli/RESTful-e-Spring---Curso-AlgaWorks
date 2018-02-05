@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -25,10 +26,10 @@ public class Autor {
 	private String nome;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@NotEmpty(message = "Data de Nascimento e um campo obrigatorio.")
-	private Date dtNascimento;
+	@NotNull(message = "Data de Nascimento e um campo obrigatorio.")
+	private Date nascimento;
 	
-	@NotEmpty(message = "Nacionalidade e um campo Oobrigatorio.")
+	@NotEmpty(message = "Nacionalidade e um campo Obrigatorio.")
 	private String nacionalidade;
 		
 	@OneToMany(mappedBy = "autor")
@@ -48,11 +49,11 @@ public class Autor {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Date getDtNascimento() {
-		return dtNascimento;
+	public Date getNascimento() {
+		return nascimento;
 	}
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
+	public void setNascimento(Date nascimento) {
+		this.nascimento = nascimento;
 	}
 	public String getNacionalidade() {
 		return nacionalidade;
