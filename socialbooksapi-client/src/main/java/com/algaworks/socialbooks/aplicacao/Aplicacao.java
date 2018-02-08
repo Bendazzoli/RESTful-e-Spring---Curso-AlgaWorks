@@ -1,26 +1,35 @@
 package com.algaworks.socialbooks.aplicacao;
 
-import java.net.URI;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import com.algaworks.socialbooks.client.LivrosClient;
+import com.algaworks.socialbooks.client.domain.Livro;
 
 public class Aplicacao {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		
-		RestTemplate rest = new RestTemplate();
+		LivrosClient cliente = new LivrosClient();
 		
-		RequestEntity<Void> request = RequestEntity.get(URI.create("http://localhost:8080/livros"))
-				                                   .header("Authorization", "Basic YWxnYXdvcmtzOnMzbmg0")
-				                                   .build();
+		Livro livro = new Livro();
+		livro.setNome("REST Aplicado");
+		livro.setEditora("Algaworks");
+		livro.setResumo("Aborda tudo o que você presica sobre APIs Rest!");
+		SimpleDateFormat publicacao = new SimpleDateFormat("dd/MM/yyyy");
+		livro.setPublicacao(publicacao.parse("08/02/2018"));
 		
-		ResponseEntity<Livro[]> response = rest.exchange(request, Livro[].class);
+		String localLivroSalvo = cliente.salvar(livro);
+		System.out.println("URI do livro salvo: " + localLivroSalvo);
 		
-		for(Livro livro : response.getBody()){
-			System.out.println("Livro: " + livro.getNome());
-			System.out.println("Editora: " + livro.getEditora());
+		List<Livro> listaLivros = cliente.listar();
+		
+		for(Livro livros : listaLivros){
+			System.out.println("--------------------------------------------------------------");
+			System.out.println("Livro ID: " + livros.getId());
+			System.out.println("Livro: " + livros.getNome());
+			System.out.println("Editora: " + livros.getEditora());
 		}
 	}
 }
