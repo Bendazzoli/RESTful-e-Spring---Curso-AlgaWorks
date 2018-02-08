@@ -9,9 +9,13 @@ import com.algaworks.socialbooks.client.domain.Livro;
 
 public class Aplicacao {
 	
+	private static final String URL = "http://localhost:8080";
+	private static final String USUARIO = "algaworks";
+	private static final String SENHA = "s3nh4";
+	
 	public static void main(String[] args) throws ParseException {
 		
-		LivrosClient cliente = new LivrosClient();
+		LivrosClient cliente = new LivrosClient(URL, USUARIO, SENHA);
 		
 		Livro livro = new Livro();
 		livro.setNome("REST Aplicado");
@@ -31,5 +35,9 @@ public class Aplicacao {
 			System.out.println("Livro: " + livros.getNome());
 			System.out.println("Editora: " + livros.getEditora());
 		}
+		
+		
+		Livro livroBuscado = cliente.buscar(localLivroSalvo);
+		System.out.println("O livro pesquisado foi o Livro " + livroBuscado.getId() + " - " + livroBuscado.getNome());
 	}
 }
